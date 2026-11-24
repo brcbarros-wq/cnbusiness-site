@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Your free homepage preview — CN Business</title>
+<style>
+@font-face{font-family:IS;src:url(../instrument-serif-latin-400-normal.woff2) format('woff2');font-display:swap}
+@font-face{font-family:IS;font-style:italic;src:url(../instrument-serif-latin-400-italic.woff2) format('woff2');font-display:swap}
+@font-face{font-family:IT;font-weight:100 900;src:url(../inter-tight-latin-wght-normal.woff2) format('woff2');font-display:swap}
+:root{--ink:#12100E;--ink2:#1B1815;--paper:#F2EEE8;--amber:#C8894A;--mute:#9C948A;--line:rgba(242,238,232,.14)}
+*{margin:0;padding:0;box-sizing:border-box;min-width:0}
+body{background:var(--ink);color:var(--paper);font:18px/1.55 IT,system-ui,sans-serif;-webkit-font-smoothing:antialiased;min-height:100vh;display:flex;flex-direction:column;overflow-x:clip}
+body::before{content:"";position:fixed;inset:0;z-index:-1;background:radial-gradient(45% 50% at 80% 10%,rgba(200,137,74,.22),transparent 70%),radial-gradient(40% 40% at 10% 100%,rgba(200,137,74,.10),transparent 70%)}
+a{color:inherit}
+header{padding:22px max(5vw,20px);display:flex;align-items:center;gap:12px;font-weight:650;letter-spacing:.28em;font-size:13px}
+header b{font-family:IS;font-weight:400;font-size:30px;letter-spacing:-.05em;color:var(--paper)}
+header b i{color:var(--amber)}
+main{flex:1;display:grid;place-items:center;padding:24px max(5vw,20px) 64px}
+.card{max-width:620px;width:100%}
+.for{font-size:15px;color:var(--amber);font-weight:600;margin-bottom:14px}
+h1{font-family:IS,Georgia,serif;font-weight:400;font-size:clamp(44px,8vw,76px);line-height:.98;letter-spacing:-.015em;text-wrap:balance}
+h1 em{font-style:italic;color:var(--amber)}
+p.l{color:var(--mute);font-size:19px;margin:22px 0 34px;max-width:34em}
+button{appearance:none;border:0;cursor:pointer;background:var(--amber);color:#16110C;font:650 18px IT,system-ui,sans-serif;min-height:60px;padding:0 34px;border-radius:2px;width:100%;max-width:360px;transition:transform .2s,background .2s}
+button:hover{background:#d89a5a;transform:translateY(-1px)}
+button:focus-visible{outline:3px solid var(--paper);outline-offset:3px}
+button[disabled]{opacity:.6;cursor:default;transform:none}
+ul{list-style:none;margin-top:26px;display:grid;gap:8px;color:var(--mute);font-size:15px}
+ul li::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--amber);margin-right:10px;vertical-align:middle}
+.done{display:none}
+.ok .ask{display:none}.ok .done{display:block}
+.done h1{margin-bottom:18px}
+.err{display:none;margin-top:16px;font-size:15px;color:#e8a77a}
+.small{font-size:14px;color:var(--mute);margin-top:28px}
+footer{padding:22px max(5vw,20px);font-size:13px;color:var(--mute);border-top:1px solid var(--line)}
+@media(prefers-reduced-motion:no-preference){.card{animation:up .8s cubic-bezier(.2,.8,.2,1) both}@keyframes up{from{opacity:0;transform:translateY(18px)}}}
+</style>
+</head>
+<body>
+<header><b>C<i>N</i></b>CN BUSINESS</header>
+<main><div class="card" id="card">
+  <div class="ask">
+    <p class="for" id="for">A free preview for your business</p>
+    <h1>Want to see your new <em>homepage</em>?</h1>
+    <p class="l">We'll design a simplified first version of a modern homepage for <span id="nm">your business</span> — free, with your real phone, hours and services. You just look and decide.</p>
+    <button id="yes" type="button">Yes, I'm interested</button>
+    <p class="err" id="err">Something went wrong. Please try again, or email contato@cnbusiness.com.br.</p>
+    <ul><li>No forms to fill out</li><li>No payment, no commitment</li><li>Sent to you in 1–2 business days</li></ul>
+    <p class="small">Not interested? Just ignore this — we won't keep messaging you.</p>
+  </div>
+  <div class="done" aria-live="polite">
+    <p class="for">Got it — thank you</p>
+    <h1>Your preview is <em>on the way</em>.</h1>
+    <p class="l">We'll send it to you in 1–2 business days. Questions in the meantime: contato@cnbusiness.com.br</p>
+  </div>
+</div></main>
+<footer>CN Business — premium websites for local businesses · <a href="https://cnbusiness.com.br/">cnbusiness.com.br</a></footer>
+<script>
+{
+  // Leads: slug -> business name. Add new leads here.
+  const LEADS = {
+    "aa-auto": "A&A Auto Repair",
+    "tampa-auto-doctor": "Tampa Auto Doctor",
+    "cumbas-mobile": "Cumba's Mobile Auto Solutions",
+    "simple-solutions": "Simple Solutions Mobile Mechanic",
+    "ar-auto": "A&R Auto Repairs"
+  };
+  const FORM = "https://docs.google.com/forms/d/e/1FAIpQLSdZiK9CAU7Dh1t3-4dRr_enIpDoTC9w0iYGZ4svOQ6EkngS7w/formResponse";
+  const FIELD = "entry.1853538946";
+  const slug = (new URLSearchParams(location.search).get("b") || "").toLowerCase().replace(/[^a-z0-9-]/g, "").slice(0, 60);
+  const name = LEADS[slug] || "";
+  if (name) {
+    document.getElementById("for").textContent = "A free preview for " + name;
+    document.getElementById("nm").textContent = name;
+  }
+  const btn = document.getElementById("yes");
+  btn.addEventListener("click", async () => {
+    btn.disabled = true; btn.textContent = "Sending…";
+    document.getElementById("err").style.display = "none";
+    const body = new URLSearchParams();
+    body.set(FIELD, [slug || "unknown", name || "-", "yes"].join(" | "));
+    try {
+      await fetch(FORM, { method: "POST", mode: "no-cors", body });
+      document.getElementById("card").classList.add("ok");
+    } catch (e) {
+      btn.disabled = false; btn.textContent = "Yes, I'm interested";
+      document.getElementById("err").style.display = "block";
+    }
+  });
+}
+</script>
+</body>
+</html>
